@@ -1,5 +1,5 @@
 # GITHUB REPO ISSUE REPORTER
-Uses the github API to watch for new issues in the repo https://api.github.com/repos/omxhealth/a-a-interview
+Uses the github API to watch for new issues in the repo https://github.com/repos/omxhealth/a-a-interview
 
 - watches for new issues and reports them (with id, title)
 - reports issues being closed (with same info as above)
