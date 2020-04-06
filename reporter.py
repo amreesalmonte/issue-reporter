@@ -22,32 +22,34 @@ def formatOutput(openIssues, closedIssues):
     # openIssues - list of tuples formatted as (id, title) that contain open issues in the repo
     # closedIssues - list of tuples formatted as (id, title) that contain closed issues in the repo
 
-    print("\n{:^60}".format("OPEN ISSUES"))
-    #table formatting
-    print("-" * 70) 
-    print("|{:^15}|{:^60}|".format("id", "title"))
-    print("-" * 75) 
+    print("\n{:}".format("OPEN ISSUES"))
+    # table formatting
+    print("-" * 78) 
+    print("|{:^15}|{:^60}|".format("id", "title")) # character limit for issue titles in github is 60
+    print("-" * 78) 
     for issue in openIssues:
         id = str(issue[0])
         title = issue[1]
         print("|{:^15}|{:^60}|".format(id, title))
+    print("-" * 78) 
     print("TOTAL NUMBER OF OPEN ISSUES:", len(openIssues))
 
-    print("\n{:^60}".format("CLOSED ISSUES"))
-    #table formatting
-    print("-" * 70) 
+    print("\n{:}".format("CLOSED ISSUES"))
+    # table formatting
+    print("-" * 78) 
     print("|{:^15}|{:^60}|".format("id", "title"))
-    print("-" * 75) 
+    print("-" * 78) 
     for issue in closedIssues:
         id = str(issue[0])
         title = issue[1]
         print("|{:^15}|{:^60}|".format(id, title))
-    print("TOTAL NUMBER OF CLOSED ISSUES:", len(closedIssues))
+    print("-" * 78) 
+    print("TOTAL NUMBER OF CLOSED ISSUES:", len(closedIssues), " \n")
 
 def main():
 
-    repo = "https://api.github.com/repos/omxhealth/a-a-interview/issues" #/repos/:owner/:repo/issues
-    request = requests.get(repo, {"state" : "all"}) #default response obtained are open issues need to specify all
+    repo = "https://api.github.com/repos/omxhealth/a-a-interview/issues" # /repos/:owner/:repo/issues
+    request = requests.get(repo, {"state" : "all"}) # default response obtained are open issues need to specify all
     response = request.json()
 
     openIssues, closedIssues = parseData(response)
