@@ -3,6 +3,7 @@ import requests
 
 def parseData(response):
     # parses through the json file and extracts issue title and id
+    # returns a separate list of open issues and closed issues
     # reponse - list type that contains response from request
 
     openIssues = []
@@ -21,12 +22,27 @@ def formatOutput(openIssues, closedIssues):
     # openIssues - list of tuples formatted as (id, title) that contain open issues in the repo
     # closedIssues - list of tuples formatted as (id, title) that contain closed issues in the repo
 
-    print("{:^10}|{:^60}".format("id", "title"))
+    print("\n{:^60}".format("OPEN ISSUES"))
+    #table formatting
     print("-" * 70) 
+    print("|{:^15}|{:^60}|".format("id", "title"))
+    print("-" * 75) 
     for issue in openIssues:
         id = str(issue[0])
         title = issue[1]
-        print("{:^10}|{:^60}".format(id, title))
+        print("|{:^15}|{:^60}|".format(id, title))
+    print("TOTAL NUMBER OF OPEN ISSUES:", len(openIssues))
+
+    print("\n{:^60}".format("CLOSED ISSUES"))
+    #table formatting
+    print("-" * 70) 
+    print("|{:^15}|{:^60}|".format("id", "title"))
+    print("-" * 75) 
+    for issue in closedIssues:
+        id = str(issue[0])
+        title = issue[1]
+        print("|{:^15}|{:^60}|".format(id, title))
+    print("TOTAL NUMBER OF CLOSED ISSUES:", len(closedIssues))
 
 def main():
 
