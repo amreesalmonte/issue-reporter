@@ -1,10 +1,8 @@
 # GITHUB REPO ISSUE REPORTER
-Uses the github API to watch for new issues in the repo https://github.com/omxhealth/a-a-interview
+Uses the github API to watch for new issues in the repository given by the user
 
-- watches for new issues and reports them (with id, title)
-- reports issues being closed (with same info as above)
-- whenever an issue is added/closed, reports the number of total existing/closed issues, but does not show details of the other issues
-
+- reports open and closed issues with id and title of the issue
+- reports the number of total existing/closed issues
 
 ## SETUP
 Requests module is required for script to run. To install this module issue the following command:
