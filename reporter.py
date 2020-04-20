@@ -1,6 +1,30 @@
 # uses the github API to watch for new issues
 import requests
 
+def userInput():
+    # takes in user input of repository name and owner and returns it
+
+    
+    repoName = input("Repository name: ")
+    repoOwner = input("Repository owner: ")
+
+    return repoName, repoOwner
+
+def verify(repoName, repoOwner):
+    # verifies if the repository exists
+    # repoName, repoOwner - string
+
+    repo = "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/issues" # /:owner/:repo/issues
+
+    request = requests.get(repo, {"state" : "all"}) # default response obtained are open issues need to specify all
+    response = request.json()
+
+    if "message" in response:
+        print("There was a problem accessing the repository")
+        quit()
+    else:
+        return response
+
 def parseData(response):
     # parses through the json file and extracts issue title and id
     # returns a separate list of open issues and closed issues
@@ -8,12 +32,13 @@ def parseData(response):
 
     openIssues = []
     closedIssues = []
-    for issue in response:
-        data = (issue["id"], issue["title"])
-        if issue["state"] == "closed":
-            closedIssues.append(data)
-        else:
-            openIssues.append(data)
+    if response != []:  # empty means no issues in repo
+        for issue in response:
+            data = (issue["id"], issue["title"])
+            if issue["state"] == "closed":
+                closedIssues.append(data)
+            else:
+                openIssues.append(data)
  
     return openIssues, closedIssues
 
@@ -48,9 +73,8 @@ def formatOutput(openIssues, closedIssues):
 
 def main():
 
-    repo = "https://api.github.com/repos/omxhealth/a-a-interview/issues" # /repos/:owner/:repo/issues
-    request = requests.get(repo, {"state" : "all"}) # default response obtained are open issues need to specify all
-    response = request.json()
+    repoName, repoOwner = userInput()
+    response = verify(repoName, repoOwner)
 
     openIssues, closedIssues = parseData(response)
     formatOutput(openIssues, closedIssues)
